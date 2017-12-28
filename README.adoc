@@ -1,0 +1,55 @@
+= Setup
+
+This backend transform an AsciiDoc document to a html wizard webpage.
+
+To use this backend, first you need to install some gems.
+
+[source, terminal]
+----
+gem install asciidoctor tilt haml thread_safe
+gem install slim --version 2.1.0
+----
+
+Then you need to clone this repository in a local directory.
+
+Finally you can transform your AsciiDoc document into a html wizard by typing:
+
+[source, terminal]
+----
+asciidoctor -T <installation_directory>/asciidoctor-angularwizard-backend/slim <document>.adoc
+----
+
+An example of a document to write a tutorial looks like:
+
+[source, adoc]
+----
+= Example
+:twitter: alexsotob
+:description: This is a tutorial
+
+[yt-id=LNDlrQ8s4ug, gh-url=https://github.com/arquillian/arquillian-cube]
+== Next Step
+
+My next step
+
+[source, java]
+----
+public class Include{}
+----
+
+== Next Next step
+
+My next next step
+----
+
+Which is transformed to:
+
+image:https://preview.ibb.co/gCtKMb/Screen_Shot_2017_12_28_at_22_02_27.png[]
+
+Each section is transformed into a wizard.
+
+In case that section contains `yt-id` attribute pointing to a video id of youtube, the youtube icon is placed pointing to that video.
+In case that section contains `gh-url` attribute, then a button with github icon linked to given url is set.
+
+
+
