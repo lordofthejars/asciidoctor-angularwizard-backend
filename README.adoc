@@ -21,7 +21,7 @@ asciidoctor -T <installation_directory>/asciidoctor-angularwizard-backend/slim <
 
 An example of a document to write a tutorial looks like:
 
-image:https://ibb.co/mn35SG[]
+image:https://preview.ibb.co/nLeenG/Screen_Shot_2017_12_28_at_22_19_01.png[]
 
 Which is transformed to:
 
