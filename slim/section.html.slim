@@ -1,0 +1,38 @@
+- if @level > 0
+  wz-step(wz-title='#{title}')
+    div(class='card')
+      div(class='card-body')
+        h4(class='card-title')
+          =title
+        p(class='card-text')
+          =content
+
+        button(type='button' class='btn btn-primary btn-space' wz-previous='logStep()')
+          i(class='fas fa-arrow-alt-circle-left')
+
+        button(type='button' class='btn btn-primary btn-space' wz-next='logStep()')
+          i(class='fas fa-arrow-alt-circle-right')
+
+        - if attr? 'yt-id'
+          - modalId = %(##{attr 'yt-id'})
+          - labelId = %(#{attr 'yt-id'}Label)
+          - videoId = %(#{attr 'yt-id'})
+          - ytLink = %(https://youtu.be/#{attr 'yt-id'})
+          - ytEmbedded = %(https://www.youtube.com/embed/#{attr 'yt-id'})
+          button(type='button' class='btn btn-primary btn-space' data-toggle='modal' data-target=modalId)
+            i(class='fas fa-video')
+          div(class='modal fade' id=videoId tabindex='-1' role='dialog' aria-labelledby=labelId aria-hidden='true')
+            div(class='modal-dialog modal-lg' role='document')
+              div(class='modal-content')
+                div(class='modal-header')
+                  h5(class="modal-title" id=labelId)
+                    a(href='#{ytLink}') #{ytLink}
+                  button(type='button' class='close' data-dismiss='modal' aria-label='Close')
+                    span(aria-hidden='true') &times;
+                div(class="modal-body")
+                  iframe(src=ytEmbedded width='768' height='432')
+
+        - if attr? 'gh-url'
+          - javascript_open = %(window.open('#{attr 'gh-url'}'))
+          button(type='button' class='btn btn-primary btn-space' onclick=javascript_open)
+            i(class='fab fa-github')

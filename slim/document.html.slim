@@ -1,0 +1,103 @@
+doctype 5
+html
+  head
+    meta(charset='UTF-8')
+    title=((doctitle sanitize: true) || (attr 'untitled-label'))
+
+    <!-- Angular Wizard -->
+    link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic')
+    link(rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.3/angular-material.css')
+    link(rel='stylesheet prefetch' href='https://cdn.jsdelivr.net/angular.wizard/latest/angular-wizard.min.css')
+    link(rel='stylesheet prefetch' href='https://material.angularjs.org/1.0.1-master-a687bfc/docs.css')
+
+    css:
+      .modal.fade .modal-dialog {
+        -webkit-transition: -webkit-transform 0.3s ease-out;
+           -moz-transition: -moz-transform 0.3s ease-out;
+             -o-transition: -o-transform 0.3s ease-out;
+                transition: transform 0.3s ease-out;
+      }
+
+      .modal.in .modal-dialog {
+      }
+      .btn-space {
+        margin-right: 5px;
+      }
+
+    <!-- Fonat Awesome -->
+    script(defer src='https://use.fontawesome.com/releases/v5.0.2/js/all.js')
+
+    <!-- Bootstrap -->
+    link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css' integrity='sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb' crossorigin='anonymous')
+
+    script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js' integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN' crossorigin='anonymous')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js' integrity='sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh' crossorigin='anonymous')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js' integrity='sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ' crossorigin='anonymous')
+
+    css:
+      .steps-indicator li.done a:before {
+        background-color: #08f !important;
+      }
+      .steps-indicator li.current a:before {
+        background-color: #08f !important;
+      }
+
+  body
+    div(class='container')
+      div(class='jumbotron jumbotron-fluid')
+        div(class='container')
+          h2(class='display-4') #{((doctitle sanitize: true) || (attr 'untitled-label'))}
+          - if attr? 'description'
+            p(class='lead') #{attr :description}
+          - if attr? 'twitter'
+            - twitter_url = %(window.open('https://twitter.com/#{attr :twitter}'))
+            button(type='button' class='btn btn-link float-right' onclick=twitter_url) @#{attr :twitter}
+
+      div(id='main_content_wrap' class='outer')
+        section(id='main_content' class='inner main-inner' ng-app='wizard-sample' ng-controller='WizardCtrl')
+          wizard(on-finish='finished()')
+
+            =content
+
+script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js')
+script(src='https://cdn.jsdelivr.net/angular.wizard/latest/angular-wizard.min.js')
+script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js')
+script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js')
+script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js')
+script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js')
+script(src='https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.3/angular-material.js')
+script(src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/assets-cache.js')
+
+javascript:
+  angular.module('wizard-sample', ['mgo-angular-wizard'])
+      .controller('WizardCtrl', function($scope, $q, $timeout, WizardHandler) {
+
+          $scope.canExit = true;
+          $scope.stepActive = true;
+
+          $scope.finished = function() {
+              alert("Wizard finished :)");
+          };
+          $scope.logStep = function() {
+              console.log("Step continued");
+          };
+          $scope.goBack = function() {
+              WizardHandler.wizard().goTo(0);
+          };
+          $scope.exitWithAPromise = function() {
+              var d = $q.defer();
+              $timeout(function() {
+                  d.resolve(true);
+              }, 1000);
+              return d.promise;
+          };
+          $scope.exitToggle = function() {
+              $scope.canExit = !$scope.canExit;
+          };
+          $scope.stepToggle = function() {
+              $scope.stepActive = !$scope.stepActive;
+          }
+          $scope.exitValidation = function() {
+              return $scope.canExit;
+          };
+      });
