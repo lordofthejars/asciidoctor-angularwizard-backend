@@ -21,26 +21,7 @@ asciidoctor -T <installation_directory>/asciidoctor-angularwizard-backend/slim <
 
 An example of a document to write a tutorial looks like:
 
-[source]
-----
-= Example
-:twitter: alexsotob
-:description: This is a tutorial
-
-[yt-id=LNDlrQ8s4ug, gh-url=https://github.com/arquillian/arquillian-cube]
-== Next Step
-
-My next step
-
-[source, java]
-----
-public class Include{}
-----
-
-== Next Next step
-
-My next next step
-----
+image:https://ibb.co/mn35SG[]
 
 Which is transformed to:
 
